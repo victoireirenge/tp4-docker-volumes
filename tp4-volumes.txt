@@ -1,0 +1,19 @@
+# Création du volume et partage des fichiers.
+docker volume create --name share
+
+#Création du container avec le volume
+docker run -it --name ubuntu1 -v share:/tmp -d ubuntu /bin/bash
+
+#On rentre dans le container pour creer le fichier de partage toto.txt
+docker exec -it ubuntu1 /bin/bash
+
+#Je crée un fichier dans le repertoire temps
+touch /tmp/toto.txt
+
+#J'ecris des choses dans mon fichier txt
+echo "Vic the best" > /tmp/toto.txt
+
+#Création du 2eme container avec le volume
+docker run -it --name ubuntu2 -v share:/tmp -d ubuntu /bin/bash
+
+#Et je verifie la présence du fichier en m'y connectant
